@@ -1,0 +1,31 @@
+<?php
+	class LoginUserAction extends CommonAction{
+		public function index(){
+			import('ORG.Net.IpLocation');// 导入IpLocation类
+			$Ip = new IpLocation('UTFWry.dat'); // 实例化类
+			$location = $Ip->getlocation("59.108.49.35"); // 获取某个IP地址所在的位置
+			// p($Ip);
+			// p($location['country'] ."  " . $location['area']);
+
+			$user = M('user')->find();
+			// $user['loginip']= get_client_ip();
+			// $body = $user;
+
+			$body = array(
+					'city' => $location['country'],
+					// 'weather' => $location['area'],
+					'loginip' => get_client_ip(),
+					'username' => $user['username'],
+					'logintime' => $user['logintime']
+				);
+			// p($body);
+		// 	$weather_interface_url=http://weatherai.markt.xiaomi.com/wtr-v2/weather?cityId=.$city_id.&mei=e32c88633283737f5d9f381d47&device=HM2013023&miuiVersion=JHBCNBD16.0&modDevice=ce=miuiWeatherAp;
+		// $all_weather_info = json_decode(file_get_contents($weather_interface_url));
+		//分配数据
+		// $this->assign(all_info,$all_weather_info);
+			
+ 			$this->body = $body;
+			$this->display();
+		}
+	}
+?>

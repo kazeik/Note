@@ -1,0 +1,16 @@
+<?php
+	class LoginUserAction extends CommonAction{
+		public function index(){
+			// import('ORG.Net.IpLocation');// 导入IpLocation类
+			// $Ip = new IpLocation('UTFWry.dat'); // 实例化类
+			// $location = $Ip->getlocation('221.203.225.94'); // 获取某个IP地址所在的位置
+			// var_dump($Ip);
+			// var_dump($location);
+
+			$user = M('user')->find();
+			$user['loginip']=get_client_ip();
+			$this->body = $user;
+			$this->display();
+		}
+	}
+?>

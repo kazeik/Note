@@ -1,0 +1,14 @@
+<?php 
+  class UserAction extends CommonAction{
+  	public function index(){
+  		import('ORG.Util.Page');
+  		$count = M('note')->count();
+  		//参数1： 总条数，参数2：每页显示多少条
+			$page = new Page($count,10);
+			$data = M('note')->order('time DESC')->limit($limit)->select();
+			$this->user = $data;
+			$this->page = $page->show();
+			$this->display();
+  	}
+  }
+?>

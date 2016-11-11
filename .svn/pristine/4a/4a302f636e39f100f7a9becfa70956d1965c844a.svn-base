@@ -1,0 +1,27 @@
+<?php
+	/*
+	* 这是后台首页控制器
+	*/
+	
+	class IndexAction extends CommonAction{
+		
+		public function index(){
+			$username = M('user')->find();
+			$this->vo = $username;
+			$this->display();
+		}
+
+		public function logout(){
+			$data = array(
+				'lock' => 0
+				);
+			$username = M('user')->find();
+			$loginName = $username['username'];
+			// p($loginName);
+			// M('user')->where(array('username'=> $username['username'])->save($data);
+			session_unset();
+			session_destroy();
+			$this->redirect('Admin/Login/index');
+		}
+	}
+?>
